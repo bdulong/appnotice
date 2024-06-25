@@ -1,0 +1,26 @@
+.CTA-language {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    width: 310px;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 0 10px;
+    box-sizing: border-box;
+	margin: 0 0 60px 0;
+}
+
+.language__text-flag {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* Permet au conteneur de prendre tout l'espace horizontal disponible */
+    justify-content: center;
+}
+
+.language__text-flag svg {
+    margin-right: 10px;
+}

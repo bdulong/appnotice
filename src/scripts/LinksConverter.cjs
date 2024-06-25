@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const generateRandomName = require('./RandomName.cjs');
 
-const appFilePath = path.join(__dirname, 'App.jsx');
-const componentsDir = path.join(__dirname, './components/dossiers_jsx');
+const appFilePath = path.join(__dirname, '../App.jsx');
+const componentsDir = path.join(__dirname, '../components/dossiers_jsx');
 
 // Récupérer le nom de fichier du dossier "dossiers_jsx"
 const files = fs.readdirSync(componentsDir).filter(file => file.endsWith('.jsx'));

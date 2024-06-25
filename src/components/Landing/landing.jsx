@@ -1,5 +1,5 @@
-import './App.css'
-import Header from './components/header.jsx'
+import '../../App.css'
+import Header from '../Header/header.jsx'
 import './landing.css'
 
 export default function Landing() {

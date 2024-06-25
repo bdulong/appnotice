@@ -18,8 +18,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "gene": "node src/FolderToJSX.cjs",
-    "links": "node src/LinksConverter.cjs"
+    "gene": "node src/scripts/FolderToJSX.cjs",
+    "links": "node src/scripts/LinksConverter.cjs"
   },
   "eslintConfig": {
     "extends": [
