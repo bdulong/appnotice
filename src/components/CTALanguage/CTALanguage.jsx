@@ -22,7 +22,13 @@ export default function CTALanguage() {
           </svg>
           Français
         </div>
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <svg
+          className={`chevron ${isDropdownVisible ? "chevron-rotate" : ""}`}
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+        >
           <path
             d="M3.115 4L10 11.4232L16.885 4L19 6.2965L10 16L1 6.2965L3.115 4Z"
             fill="black"
