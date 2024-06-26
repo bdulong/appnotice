@@ -1,3 +1,7 @@
+.CTA-language__container {
+	margin: 0 0 60px 0;
+}
+
 .CTA-language {
     display: flex;
     flex-direction: row;
@@ -11,7 +15,7 @@
     font-weight: 400;
     padding: 0 10px;
     box-sizing: border-box;
-	margin: 0 0 60px 0;
+	margin: 0 0 20px 0;
 }
 
 .language__text-flag {
@@ -19,8 +23,13 @@
     align-items: center;
     flex-grow: 1; /* Permet au conteneur de prendre tout l'espace horizontal disponible */
     justify-content: center;
+    margin: 0 0 0 20px;
 }
 
 .language__text-flag svg {
+    margin-right: 10px;
+}
+
+.language__text-flag img {
     margin-right: 10px;
 }
