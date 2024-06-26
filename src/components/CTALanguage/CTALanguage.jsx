@@ -1,12 +1,12 @@
-import React, { useState } from "react"; // Importer useState pour gérer l'état local
+import React, { useState } from "react"; // Gérer l'état local
 import "../../App.css";
 import "./CTALanguage.css";
 
 export default function CTALanguage() {
-  // État pour gérer la visibilité du menu déroulant
+  // Gérer la visibilité du dropdown
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-  // Fonction pour basculer la visibilité du menu déroulant
+  // Fonction pour visibilité du dropdown
   const toggleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);
   };
