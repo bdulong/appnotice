@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const generateRandomName = require('./RandomName.cjs');
+const dotenv = require('dotenv');
+dotenv.config();
+console.log("REACT_APP_KEY:", process.env.REACT_APP_KEY);
 
 const appFilePath = path.join(__dirname, '../App.jsx');
 const componentsDir = path.join(__dirname, '../components/dossiers_jsx');
@@ -24,7 +27,12 @@ if (lines.length < 5) {
 }
 
 // Clé pour la génération des noms
-const key = 'PLV';
+const key = process.env.REACT_APP_KEY;
+
+if (!key) {
+    console.error('La clé REACT_APP_KEY n\'est pas définie dans le fichier .env.');
+    process.exit(1);
+}
 
 // Générer les nouvelles lignes d'import et de Route
 const newImportsAndRoutes = files.map(file => {

@@ -10,9 +10,9 @@ export default function Landing() {
     <main>
       <Header />
       <h1>{t('Bienvenue')}</h1>
-      <Link to="/ACGSnenIHF">SEPHORA</Link>
-      <Link to="/CLwKZGLtUy">ANTONIO</Link>
-      <Link to="/ZdecCTnmIA">CHANEL</Link>
+      <Link to="/AgwvZtpORv">SEPHORA</Link>
+      <Link to="/HjsqGbjAWc">ANTONIO</Link>
+      <Link to="/ILsobVqsWW">CHANEL</Link>
     </main>
   )
 }
