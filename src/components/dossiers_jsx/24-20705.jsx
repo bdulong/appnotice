@@ -17,7 +17,7 @@ const Page = () => {
                     <button className='CTA-notice'>{t(`sousDossiers.Demantelement`)}</button>
 					<button className='CTA-notice'>{t(`sousDossiers.Electricite`)}</button>
 					<button className='CTA-notice'>{t(`sousDossiers.Emballage`)}</button>
-					<button className='CTA-notice'>{t(`sousDossiers.Montage`)}</button>
+					<button className='CTA-notice'>{t(`sousDossiers.Installation`)}</button>
 					<button className='CTA-notice'>{t(`sousDossiers.Transport`)}</button>
                 </div>
                 <CTALanguage />
