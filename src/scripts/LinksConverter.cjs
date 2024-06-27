@@ -30,7 +30,7 @@ const key = 'PLV';
 const newImportsAndRoutes = files.map(file => {
 	const randomName = generateRandomName(file, key);
 	const importLine = `import ${randomName} from './components/dossiers_jsx/${file}';`;
-	const routeLine = `\t\t\t\t<Route path="/${randomName}" element={<${randomName} />} />`;
+	const routeLine = `\t\t\t\t\t\t<Route path="/${randomName}" element={<${randomName} />} />`;
 	return { importLine, routeLine };
 });
 
@@ -38,7 +38,7 @@ const newImportsAndRoutes = files.map(file => {
 const existingImports = new Set(lines.filter(line => line.startsWith('import ')));
 const uniqueImports = newImportsAndRoutes.filter(({ importLine }) => !existingImports.has(importLine));
 
-// Ajouter les nouvelles lignes après la 5ème ligne
+// Ajouter les nouvelles lignes après la 7ème ligne
 if (uniqueImports.length > 0) {
 	let landingRouteIndex = -1;
 
@@ -57,8 +57,8 @@ if (uniqueImports.length > 0) {
 	// Insérer les nouvelles lignes après la ligne <Route path="/" element={<Landing />} />
 	lines.splice(landingRouteIndex + 1, 0, ...uniqueImports.map(({ routeLine }) => routeLine));
 
-	// Insérer les nouvelles lignes d'import après la 5ème ligne
-	lines.splice(5, 0, ...uniqueImports.map(({ importLine }) => importLine));
+	// Insérer les nouvelles lignes d'import après la 7ème ligne
+	lines.splice(7, 0, ...uniqueImports.map(({ importLine }) => importLine));
 
 	// Réécrire le fichier App.jsx avec les nouvelles lignes
 	appFileContent = lines.join('\n');

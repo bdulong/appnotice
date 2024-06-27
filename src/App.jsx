@@ -18,9 +18,9 @@ export default function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Landing />} />
-                        <Route path="/ACGSnenIHF" element={<ACGSnenIHF />} />
-                        <Route path="/CLwKZGLtUy" element={<CLwKZGLtUy />} />
-                        <Route path="/ZdecCTnmIA" element={<ZdecCTnmIA />} />
+						<Route path="/ACGSnenIHF" element={<ACGSnenIHF />} />
+						<Route path="/CLwKZGLtUy" element={<CLwKZGLtUy />} />
+						<Route path="/ZdecCTnmIA" element={<ZdecCTnmIA />} />
                     </Routes>
                 </BrowserRouter>
             </Suspense>
