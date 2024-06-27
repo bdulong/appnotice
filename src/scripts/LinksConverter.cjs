@@ -3,7 +3,6 @@ const path = require('path');
 const generateRandomName = require('./RandomName.cjs');
 const dotenv = require('dotenv');
 dotenv.config();
-console.log("REACT_APP_KEY:", process.env.REACT_APP_KEY);
 
 const appFilePath = path.join(__dirname, '../App.jsx');
 const componentsDir = path.join(__dirname, '../components/dossiers_jsx');
@@ -19,9 +18,9 @@ if (files.length === 0) {
 // Lire le contenu de App.jsx
 let appFileContent = fs.readFileSync(appFilePath, 'utf-8');
 
-// Insérer les nouvelles lignes après la 5ème
+// Insérer les nouvelles lignes après la 9ème
 const lines = appFileContent.split('\n');
-if (lines.length < 5) {
+if (lines.length < 9) {
 	console.error('Le fichier App.jsx ne contient pas assez de lignes.');
 	process.exit(1);
 }
@@ -46,27 +45,27 @@ const newImportsAndRoutes = files.map(file => {
 const existingImports = new Set(lines.filter(line => line.startsWith('import ')));
 const uniqueImports = newImportsAndRoutes.filter(({ importLine }) => !existingImports.has(importLine));
 
-// Ajouter les nouvelles lignes après la 7ème ligne
+// Ajouter les nouvelles lignes après la 9ème ligne
 if (uniqueImports.length > 0) {
 	let landingRouteIndex = -1;
 
 	for (let i = 0; i < lines.length; i++) {
-		if (lines[i].includes('<Route path="/" element={<Landing />} />')) {
+		if (lines[i].includes('{/* Routes des pages générées par LinksConverter.cjs */}')) {
 			landingRouteIndex = i;
 			break;
 		}
 	}
 
 	if (landingRouteIndex === -1) {
-		console.error('La ligne <Route path="/" element={<Landing />} /> n\'a pas été trouvée dans le fichier App.jsx.');
+		console.error('La ligne {/* Routes des pages générées par LinksConverter.cjs */} n\'a pas été trouvée dans le fichier App.jsx.');
 		process.exit(1);
 	}
 
-	// Insérer les nouvelles lignes après la ligne <Route path="/" element={<Landing />} />
+	// Insérer les nouvelles lignes après la ligne {/* Routes des pages générées par LinksConverter.cjs */}
 	lines.splice(landingRouteIndex + 1, 0, ...uniqueImports.map(({ routeLine }) => routeLine));
 
-	// Insérer les nouvelles lignes d'import après la 7ème ligne
-	lines.splice(7, 0, ...uniqueImports.map(({ importLine }) => importLine));
+	// Insérer les nouvelles lignes d'import après la 9ème ligne
+	lines.splice(9, 0, ...uniqueImports.map(({ importLine }) => importLine));
 
 	// Réécrire le fichier App.jsx avec les nouvelles lignes
 	appFileContent = lines.join('\n');

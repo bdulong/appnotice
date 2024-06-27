@@ -5,6 +5,8 @@ import i18n from './i18n';
 import './App.css';
 
 import Landing from './components/Landing/landing.jsx';
+import PageErreur from './components/PageErreur/PageErreur.jsx';
+// Import des pages générées par LinksConverter.cjs :
 import AgwvZtpORv from './components/dossiers_jsx/24-20610.jsx';
 import HjsqGbjAWc from './components/dossiers_jsx/24-20661.jsx';
 import ILsobVqsWW from './components/dossiers_jsx/24-20705.jsx';
@@ -18,9 +20,12 @@ export default function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Landing />} />
+                        {/* Routes des pages générées par LinksConverter.cjs */}
 						<Route path="/AgwvZtpORv" element={<AgwvZtpORv />} />
 						<Route path="/HjsqGbjAWc" element={<HjsqGbjAWc />} />
 						<Route path="/ILsobVqsWW" element={<ILsobVqsWW />} />
+                        {/* Fin des routes des pages générées par LinksConverter.cjs */}
+                        <Route path="*" element={<PageErreur />} />
                     </Routes>
                 </BrowserRouter>
             </Suspense>
