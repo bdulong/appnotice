@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import "../../App.css";
 import "./CTALanguage.css";
 
 export default function CTALanguage() {
+  const { i18n } = useTranslation();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState("fr");
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
   useEffect(() => {
     console.log(`La langue est : ${currentLanguage}`);
-  }, [currentLanguage]);
+    i18n.changeLanguage(currentLanguage);
+  }, [currentLanguage, i18n]);
 
   const toggleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);

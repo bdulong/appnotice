@@ -1,0 +1,10 @@
+{
+  "sousDossiers": {
+    "Demantelement": "Dismantling",
+    "Electricite": "Electricity",
+    "Emballage": "Packaging",
+    "Montage": "Installation",
+    "Transport": "Transport"
+  },
+  "Bienvenue": "Welcome!"
+}

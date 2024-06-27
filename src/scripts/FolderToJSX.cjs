@@ -18,17 +18,20 @@ const formatterNomDossier = (nomDossier) => {
 // Fonction pour générer le contenu par défaut avec le nom du dossier et les sous-dossiers
 const genererContenu = (nomDossier, sousDossiers) => {
     const sousDossiersHTML = sousDossiers
-      .map((sd) => `<button className='CTA-notice'>${sd}</button>`)
+      .map((sd) => `<button className='CTA-notice'>{t(\`sousDossiers.${sd}\`)}</button>`)
       .join("\n")
       .replace(/\n/g, "\n\t\t\t\t\t"); // Ajout des tabulations pour les boutons
-  
+
     return `import React from 'react'
-import './dossiers_jsx-style.css'
-import '../../App.css'
-import Header from '../Header/header.jsx'
-import CTALanguage from '../CTALanguage/CTALanguage.jsx'
-  
+import { useTranslation } from 'react-i18next';
+import './dossiers_jsx-style.css';
+import '../../App.css';
+import Header from '../Header/header.jsx';
+import CTALanguage from '../CTALanguage/CTALanguage.jsx';
+
 const Page = () => {
+    const { t } = useTranslation();
+
     return (
         <main>
             <Header />
@@ -37,7 +40,7 @@ const Page = () => {
                 <div className='CTA-container'>
                     ${sousDossiersHTML}
                 </div>
-            <CTALanguage />
+                <CTALanguage />
             </div>
         </main>
     );
