@@ -2,33 +2,22 @@ const fs = require("fs");
 const path = require("path");
 
 const dossiersPath = path.join(__dirname, "..", "dossiers");
-const dossiersjsxPath = path.join(
-  __dirname,
-  "..",
-  "components",
-  "dossiers_jsx"
-);
+const dossiersjsxPath = path.join(__dirname, "..", "components", "dossiers_jsx");
 
-// Fonction pour formater le nom du dossier
+// Fonction pour formater le nom du dossier (inchangée)
 const formatterNomDossier = (nomDossier) => {
-  // Retirer tous les chiffres du nom
   let formateNom = nomDossier.replace(/\d+/g, "");
-  // Retirer les tirets
   formateNom = formateNom.replace(/-/g, "");
-  // Remplacer les underscores par des espaces
   formateNom = formateNom.replace(/_/g, " ");
-  return formateNom.trim(); // Retirer les espaces en début et fin de chaîne
+  return formateNom.trim();
 };
 
-// Fonction pour générer le contenu par défaut avec le nom du dossier et les sous-dossiers
+// Fonction modifiée pour générer le contenu
 const genererContenu = (nomDossier, sousDossiers) => {
   const sousDossiersHTML = sousDossiers
-    .map(
-      (sd) =>
-        `<button className='CTA-notice'>{t(\`sousDossiers.${sd}\`)}</button>`
-    )
+    .map(sd => `<button className='CTA-notice'>{t(\`sousDossiers.${sd}\`)}</button>`)
     .join("\n")
-    .replace(/\n/g, "\n\t\t\t\t\t"); // Ajout des tabulations pour les boutons dans le code
+    .replace(/\n/g, "\n\t\t\t\t\t");
 
   return `import React from 'react'
 import { useTranslation } from 'react-i18next';
@@ -58,17 +47,15 @@ export default Page;
 `;
 };
 
-// Vérifier les fichiers JSX existants dans le dossier dossiers_jsx
+// Le reste du code reste inchangé
 fs.readdir(dossiersjsxPath, (err, fichiersJSXExistants) => {
   if (err) {
     console.error('Erreur lors de la lecture du dossier "dossiers_jsx":', err);
     return;
   }
 
-  // Convertir les noms des fichiers existants en un ensemble pour une recherche rapide
   const fichiersExistantSet = new Set(fichiersJSXExistants);
 
-  // Lire le contenu du dossier dossiers
   fs.readdir(dossiersPath, (err, dossiers) => {
     if (err) {
       console.error('Erreur lors de la lecture du dossier "dossiers":', err);
@@ -76,50 +63,55 @@ fs.readdir(dossiersjsxPath, (err, fichiersJSXExistants) => {
     }
 
     dossiers.forEach((dossier) => {
-      // Vérifier si le dossier commence par 2 chiffres
       if (!/^\d{2}/.test(dossier)) {
-        console.log(
-          `Le dossier "${dossier}" ne correspond pas au format attendu.`
-        );
+        console.log(`Le dossier "${dossier}" ne correspond pas au format attendu.`);
         return;
       }
 
-      // Prendre les 8 premiers caractères du nom du dossier
       const nomFichierJSX = dossier.substring(0, 8) + ".jsx";
       const cheminFichierJSX = path.join(dossiersjsxPath, nomFichierJSX);
 
-      // Vérifier si le fichier existe déjà dans dossiers_jsx
       if (fichiersExistantSet.has(nomFichierJSX)) {
         console.log(`Le fichier ${nomFichierJSX} existe déjà.`);
       } else {
         const dossierPath = path.join(dossiersPath, dossier);
 
-        // Lire les sous-dossiers dans chaque dossier principal
-        fs.readdir(dossierPath, (err, sousDossiers) => {
+        fs.readdir(dossierPath, (err, contenuDossier) => {
           if (err) {
-            console.error(
-              `Erreur lors de la lecture du dossier "${dossierPath}":`,
-              err
-            );
+            console.error(`Erreur lors de la lecture du dossier "${dossierPath}":`, err);
             return;
           }
 
-          // Formater le nom du dossier
-          const nomDossierFormate = formatterNomDossier(dossier);
+          const dossier16 = contenuDossier.find(item => item.startsWith('16'));
+          
+          if (!dossier16) {
+            console.log(`Aucun dossier commençant par "16" trouvé dans "${dossier}".`);
+            return;
+          }
 
-          // Générer le contenu avec le nom du dossier formaté et les sous-dossiers
-          const contenu = genererContenu(nomDossierFormate, sousDossiers);
+          const chemin16 = path.join(dossierPath, dossier16);
 
-          // Créer un fichier avec le contenu généré
-          fs.writeFile(cheminFichierJSX, contenu, (err) => {
+          fs.readdir(chemin16, (err, sousDossiers) => {
             if (err) {
-              console.error(
-                `Erreur lors de la création du fichier ${nomFichierJSX}:`,
-                err
-              );
-            } else {
-              console.log(`Fichier ${nomFichierJSX} créé avec succès.`);
+              console.error(`Erreur lors de la lecture du dossier "${chemin16}":`, err);
+              return;
             }
+
+            const nomDossierFormate = formatterNomDossier(dossier);
+            const contenu = genererContenu(nomDossierFormate, sousDossiers);
+
+            if (typeof contenu !== 'string') {
+              console.error(`Erreur: genererContenu a retourné ${typeof contenu} au lieu d'une chaîne de caractères.`);
+              return;
+            }
+
+            fs.writeFile(cheminFichierJSX, contenu, (err) => {
+              if (err) {
+                console.error(`Erreur lors de la création du fichier ${nomFichierJSX}:`, err);
+              } else {
+                console.log(`Fichier ${nomFichierJSX} créé avec succès.`);
+              }
+            });
           });
         });
       }
